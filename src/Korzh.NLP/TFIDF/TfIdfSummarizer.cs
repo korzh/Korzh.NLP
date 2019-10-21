@@ -12,7 +12,7 @@ namespace Korzh.NLP
         
         }
 
-        public override string Process(string text, string lang = "en")
+        public override string Summarize(string text, string lang = "en")
         {
             var sentances = SplitTextOnSentances(text);
 

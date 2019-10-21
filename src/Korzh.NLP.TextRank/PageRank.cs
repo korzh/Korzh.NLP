@@ -4,9 +4,9 @@ using System.Linq;
 
 using Korzh.NLP.TextRank.Graph;
 
-namespace Korzh.NLP.TextRank { 
-
-    public class PageRank<T>
+namespace Korzh.NLP.TextRank 
+{
+    public class PageRank
     {
         /// <summary>
         /// PageRank computes a ranking of the nodes in the graph G based on
@@ -21,7 +21,7 @@ namespace Korzh.NLP.TextRank {
         /// <description></description>
         /// <param name="maxItteration"></param>
         /// <description></description>
-        /// <param name="tol"></param>
+        /// <param name="epsilon"></param>
         /// <description></description>
         /// <param name="nstart"></param>
         /// <description></description>
@@ -31,7 +31,7 @@ namespace Korzh.NLP.TextRank {
         /// <description></description>
         /// <returns>rankVector</returns>
         public Dictionary<T, double> Rank<T>(Graph<T> graph, double alpha = 0.85,
-            double maxItteration = 100, double tol = 1.0e-6,
+            double maxItteration = 100, double epsilon = 1.0e-6,
             Dictionary<T, double> nstart = null, Dictionary<T, double> personalization = null,
             Dictionary<T, double> dangling = null)
         {
@@ -94,7 +94,7 @@ namespace Korzh.NLP.TextRank {
             var danglingNodes = sGraph.DanglingNodes;
 
             var xLast = x;
-
+            var lastErr = double.MaxValue;
             do {
                 //copy the the older rank value
                 xLast = x.ToDictionary(item => item.Key, item => item.Value);
@@ -123,8 +123,12 @@ namespace Korzh.NLP.TextRank {
                     err += Math.Abs(x[node] - xLast[node]);
                 }
 
-                if (err < N * tol) {
+                if (err < lastErr) {
                     rankVector = x.ToDictionary(item => item.Key.Value, item => item.Value);
+                    lastErr = err;
+                }
+
+                if (err < N * epsilon) {
                     break;
                 }
 

@@ -12,19 +12,19 @@ namespace Korzh.NLP.TextRank
 {
     public class TextRankSummarizer: SummarizerBase
     {
-
         private IStopWordFilter _stopWordFilter;
 
-        public TextRankSummarizer(INlpServiceProvider nlpServiceProvider): base(nlpServiceProvider)
+        public TextRankSummarizer(INlpServiceProvider nlpServiceProvider)
+            : base(nlpServiceProvider)
         {
         
         }
 
-        public override string Process(string text, string lang = "en")
+        public override string Summarize(string text, string lang = "en")
         {
             var sentances = SplitTextOnSentances(text);
 
-            int summarySize = 5;
+            int summarySize = 3;
             if (sentances.Count <= summarySize) {
                 return text;
             }
@@ -42,10 +42,9 @@ namespace Korzh.NLP.TextRank
 
             var matrix = BuildSimilarityMatrix(tokenizedSentances);
 
-
             var graph = BuildDirectedGraph(matrix);
 
-            var result = new PageRank<double>()
+            var result = new PageRank()
                             .Rank(graph)
                             .OrderBy(kv => kv.Value); //Less value, better result
 
@@ -56,7 +55,6 @@ namespace Korzh.NLP.TextRank
             }
 
             return summary;
-
         }
 
 

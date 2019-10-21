@@ -2,8 +2,6 @@
 {
     public interface ITextSummarizer 
     {
-        string Process(string text, string lang = "en");    
+        string Summarize(string text, string lang = "en");    
     }
-
-
 }

@@ -31,7 +31,7 @@ namespace Korzh.NLP
             return sentances;
         }
 
-        public abstract string Process(string text, string lang = "en");
+        public abstract string Summarize(string text, string lang = "en");
     }
 
 
