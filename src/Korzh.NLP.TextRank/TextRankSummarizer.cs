@@ -74,7 +74,6 @@ namespace Korzh.NLP.TextRank
 
         private double SentanceSimilarity(IList<string> sentance1, IList<string> sentance2)
         {
-
             var allWords = sentance1.Concat(sentance2).Distinct().ToList();
 
             var v1 = new DenseVector(allWords.Count);
