@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Korzh.NLP
 {
-    public class TfIdfDepot 
+    public class TFIDFStore 
     {
         public IDictionary<string, WordData> Words { get; private set; }
 
         public IDictionary<string, DocData> DocDict { get; private set; }
 
 
-        public TfIdfDepot() {
-
+        public TFIDFStore() 
+        {
             Words = new Dictionary<string, WordData>();
             DocDict = new Dictionary<string, DocData>();
         }
@@ -93,5 +94,29 @@ namespace Korzh.NLP
                 doc.Recalculate(Words);
             }
         }
+
+        public IDictionary<string, IList<ValueTuple<string, float>>> GetDocs() 
+        {
+            var result = new Dictionary<string, IList<ValueTuple<string, float>>>();
+
+            foreach (var we in Words) {
+                foreach (var wdse in we.Value.ScoreDict) {
+                    if (!result.TryGetValue(wdse.Key, out var words)) {
+                        words = new List<ValueTuple<string, float>>();
+                        result[wdse.Key] = words;
+                    }
+                    words.Add((we.Key, wdse.Value.TFIDF));
+                }
+            }
+
+            return result;
+        }
+    }
+
+    public class DocInfo 
+    { 
+        public string DocId { get; set; }
+
+        public IList<ValueTuple<string, float>> Words { get; set; }
     }
 }

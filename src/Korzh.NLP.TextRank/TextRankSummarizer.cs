@@ -22,10 +22,10 @@ namespace Korzh.NLP.TextRank
 
         public override string Summarize(string text, string lang = "en")
         {
-            var sentances = SplitTextOnSentances(text);
+            var sentences = SplitTextOnSentences(text);
 
             int summarySize = 3;
-            if (sentances.Count <= summarySize) {
+            if (sentences.Count <= summarySize) {
                 return text;
             }
 
@@ -33,14 +33,14 @@ namespace Korzh.NLP.TextRank
 
             var stemmer = _nlpServiceProvider.GetStemmer(lang);
 
-            var tokenizedSentances = new List<IList<string>>();
+            var tokenizedSentences = new List<IList<string>>();
 
-            foreach (var sentance in sentances) {
-                var tokenizer = new TextTokenizer(sentance, filterMapper: new TextFilterMapper { Map = (t) => stemmer.Stem(t) });
-                tokenizedSentances.Add(tokenizer.ToList());
+            foreach (var sentence in sentences) {
+                var tokenizer = new TextTokenizer(sentence, filterMapper: new TextFilterMapper { Map = (t) => stemmer.Stem(t) });
+                tokenizedSentences.Add(tokenizer.ToList());
             }
 
-            var matrix = BuildSimilarityMatrix(tokenizedSentances);
+            var matrix = BuildSimilarityMatrix(tokenizedSentences);
 
             var graph = BuildDirectedGraph(matrix);
 
@@ -49,9 +49,9 @@ namespace Korzh.NLP.TextRank
                             .OrderBy(kv => kv.Value); //Less value, better result
 
             var summary = "";
-            var topSentances = result.Take(summarySize).OrderBy(kv => kv.Key); //Sentances order in text
+            var topSentances = result.Take(summarySize).OrderBy(kv => kv.Key); //Sentences order in text
             foreach (var topSent in topSentances) {
-                summary += sentances[topSent.Key] + ". ";
+                summary += sentences[topSent.Key] + ". ";
             }
 
             return summary;

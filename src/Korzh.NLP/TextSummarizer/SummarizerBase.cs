@@ -16,7 +16,7 @@ namespace Korzh.NLP
             _nlpServiceProvider = nlpServiceProvider;
         }
 
-        protected List<string> SplitTextOnSentances(string text) 
+        protected List<string> SplitTextOnSentences(string text) 
         {
 
             if (string.IsNullOrEmpty(text))

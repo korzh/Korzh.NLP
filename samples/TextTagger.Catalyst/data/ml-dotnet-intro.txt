@@ -1,0 +1,24 @@
+
+ML.NET
+An open source and cross-platform machine learning framework
+
+Built for .NET developers
+With ML.NET, you can create custom ML models using C# or F# without having to leave the .NET ecosystem.
+
+ML.NET lets you re-use all the knowledge, skills, code, and libraries you already have as a .NET developer so that you can easily integrate machine learning into your web, mobile, desktop, gaming, and IoT apps.
+
+Custom ML made easy with AutoML
+ML.NET offers Model Builder (a simple UI tool) and ML.NET CLI to make it super easy to build custom ML Models.
+
+These tools use Automated ML (AutoML), a cutting edge technology which automates the process of building best performing models for your Machine Learning scenario. All you have to do is load your data, and AutoML takes care of the rest of the model building process.
+
+Extended with TensorFlow & more
+ML.NET has been designed as an extensible platform so that you can consume other popular ML frameworks (TensorFlow, ONNX, Infer.NET, and more) and have access to even more machine learning scenarios, like image classification, object detection, and more.
+
+
+High performance and accuracy
+Using a 9GB Amazon review data set, ML.NET trained a sentiment analysis model with 95% accuracy. Other popular machine learning frameworks failed to process the dataset due to memory errors. Training on 10% of the data set, to let all the frameworks complete training, ML.NET demonstrated the highest speed and accuracy.
+
+The performance evaluation found similar results in other machine learning scenarios, including click-through rate prediction and flight delay prediction.
+
+

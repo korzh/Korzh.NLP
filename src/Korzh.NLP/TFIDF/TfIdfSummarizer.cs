@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 namespace Korzh.NLP
 {
 
-    public class TfIdfSummarizer: SummarizerBase
+    public class TFIDFSummarizer: SummarizerBase
     {
-        public TfIdfSummarizer(INlpServiceProvider nlpServiceProvider) : base(nlpServiceProvider) { 
+        public TFIDFSummarizer(INlpServiceProvider nlpServiceProvider) : base(nlpServiceProvider) { 
         
         }
 
         public override string Summarize(string text, string lang = "en")
         {
-            var sentances = SplitTextOnSentances(text);
+            var sentances = SplitTextOnSentences(text);
 
             int summarySize = 5;
             if (sentances.Count <= summarySize) {
                 return text;
             }
 
-            var tfidf = new TfIdfDepot();
+            var tfidf = new TFIDFStore();
 
             var filterMapper = new KeywordExtractor(_nlpServiceProvider, lang);
 
